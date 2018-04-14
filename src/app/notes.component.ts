@@ -1,5 +1,6 @@
 import {Component, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import 'rxjs/add/operator/do';
 
 interface Note {
   text: string;
@@ -36,8 +37,8 @@ export default class NotesComponent {
 
   async getNotes(): void {
     this.notes = await this.http.get<Note[]>(this.notesUrl)
+      .do(notes => console.log(notes))
       .toPromise();
-    console.log(this.notes);
   }
 
   add() {
